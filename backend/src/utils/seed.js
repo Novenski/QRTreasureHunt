@@ -84,4 +84,7 @@ async function seed() {
   }
 }
 
-seed();
+// Only run seed if called directly (not imported)
+if (require.main === module) {
+  seed();
+}
