@@ -67,7 +67,9 @@ const DashboardPage = () => {
 
   // Check if user has found a specific QR code
   const hasFoundQRCode = (qrCodeId) => {
-    return stats?.foundCodes?.some(foundCode => foundCode.qrCode.id === qrCodeId) || false;
+    const found = stats?.foundCodes?.some(foundCode => foundCode.qrCode.id === qrCodeId) || false;
+    console.log(`Checking QR Code ${qrCodeId}:`, found, 'Found codes:', stats?.foundCodes?.length);
+    return found;
   };
 
   return (
@@ -177,32 +179,44 @@ const DashboardPage = () => {
                       const isFound = hasFoundQRCode(qrCode.id);
                       return (
                         <Col md="6" lg="4" key={qrCode.id}>
-                          <Card className={`h-100 border-0 ${isFound ? 'bg-success bg-opacity-10' : 'bg-light'}`}>
+                          <Card className={`h-100 border-0 ${isFound ? 'bg-success bg-opacity-10 border-success' : 'bg-light'}`}>
                             <Card.Body className="p-3">
                               <div className="d-flex align-items-center justify-content-between mb-2">
                                 <Badge bg={isFound ? 'success' : 'secondary'} className="fs-6 px-3 py-2">
                                   {qrCode.points} Punkte
                                 </Badge>
-                                {isFound && (
+                                {isFound ? (
                                   <Badge bg="success" className="fs-6 px-3 py-2">
                                     ✅ Gefunden
+                                  </Badge>
+                                ) : (
+                                  <Badge bg="warning" className="fs-6 px-3 py-2">
+                                    🔍 Noch nicht gefunden
                                   </Badge>
                                 )}
                               </div>
                               
-                              <h5 className={`fw-semibold mb-2 ${isFound ? '' : 'text-muted'}`}>
-                                {isFound ? qrCode.name : 'Versteckter QR-Code'}
+                              <h5 className={`fw-semibold mb-2 ${isFound ? 'text-success' : 'text-muted'}`}>
+                                {isFound ? qrCode.name : '🔒 Versteckter QR-Code'}
                               </h5>
                               
-                              <p className={`small mb-2 ${isFound ? '' : 'text-muted'}`}>
+                              <p className={`small mb-2 ${isFound ? 'text-dark' : 'text-muted'}`}>
                                 {isFound ? qrCode.description : 'Finde diesen QR-Code, um Details zu sehen!'}
                               </p>
                               
                               <div className="text-muted small">
-                                Code: <Badge bg="outline-secondary" className="ms-1">
+                                Code: <Badge bg={isFound ? 'success' : 'outline-secondary'} className="ms-1">
                                   {isFound ? qrCode.code : '??? ???'}
                                 </Badge>
                               </div>
+                              
+                              {isFound && (
+                                <div className="mt-2">
+                                  <small className="text-success">
+                                    🎉 Du hast diesen QR-Code bereits gefunden!
+                                  </small>
+                                </div>
+                              )}
                             </Card.Body>
                           </Card>
                         </Col>
