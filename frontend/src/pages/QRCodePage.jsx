@@ -26,10 +26,11 @@ const QRCodePage = () => {
     try {
       const response = await qrAPI.getQRCode(codeId);
       setQrCode(response.data);
-      // Reset claim status when QR code data changes
-      setClaimed(false);
-      setHasCheckedClaimStatus(false);
-      setClaimError('');
+      // Only reset claim status if not currently showing success message
+      if (!claimed) {
+        setHasCheckedClaimStatus(false);
+        setClaimError('');
+      }
     } catch (err) {
       setError(err.response?.data?.error || 'QR-Code nicht gefunden');
     } finally {
@@ -78,8 +79,8 @@ const QRCodePage = () => {
         });
       }, 1000);
       
-      // Refresh QR code data to get updated found codes
-      await fetchQRCode();
+      // Don't refresh QR code data immediately to preserve success message
+      // The redirect will happen before the user sees the updated data
     } catch (err) {
       console.error('Error claiming QR code:', err);
       const errorMessage = err.response?.data?.error || 'Fehler beim Beanspruchen';
