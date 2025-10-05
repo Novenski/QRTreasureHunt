@@ -22,7 +22,10 @@ const authMiddleware = async (req, res, next) => {
       return res.status(401).json({ error: 'Ungültiger Token' });
     }
 
-    req.user = decoded;
+    req.user = {
+      id: decoded.userId,
+      isAdmin: user.isAdmin
+    };
     next();
   } catch (error) {
     console.error('Auth middleware error:', error);
