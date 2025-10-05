@@ -27,9 +27,11 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // Only handle 401 errors for API requests, not frontend routes
+    if (error.response?.status === 401 && error.config?.url?.startsWith('/api')) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      // Redirect to login page
       window.location.href = '/login';
     }
     return Promise.reject(error);
