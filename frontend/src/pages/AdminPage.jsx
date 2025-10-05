@@ -283,6 +283,26 @@ const AdminPage = () => {
                       </div>
                     </Card.Body>
                   </Card>
+
+                  {/* Donation Notice */}
+                  <Card className="border-0 shadow-sm mt-4">
+                    <Card.Body className="p-4 text-center">
+                      <div className="display-4 text-primary mb-3">💝</div>
+                      <h3 className="h4 fw-bold mb-3">Unterstütze das Spiel</h3>
+                      <p className="text-muted mb-4">
+                        Dieses Spiel läuft auf kostenpflichtigen Servern (Railway + Vercel). 
+                        Hilf mit, die monatlichen Kosten zu decken!
+                      </p>
+                      <a 
+                        href="https://www.paypal.com/donate/?hosted_button_id=Z2RY7TUJNN8HC" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn btn-primary btn-lg"
+                      >
+                        💳 Jetzt spenden
+                      </a>
+                    </Card.Body>
+                  </Card>
                 </div>
               </Tab>
 

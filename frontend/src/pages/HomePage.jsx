@@ -187,6 +187,37 @@ const HomePage = () => {
           </div>
         </Container>
       </div>
+
+      {/* Donation Section */}
+      <div className="py-5 bg-light">
+        <Container className="text-center">
+          <h2 className="h1 mb-4">💝 Unterstütze das Spiel</h2>
+          <p className="lead text-muted mb-4">
+            Dieses Spiel läuft auf kostenpflichtigen Servern. Hilf mit, die Kosten zu decken!
+          </p>
+          <div className="row justify-content-center">
+            <div className="col-md-6">
+              <Card className="border-0 shadow-sm">
+                <Card.Body className="p-4">
+                  <div className="display-4 text-primary mb-3">💰</div>
+                  <h3 className="h4 mb-3">Spende via PayPal</h3>
+                  <p className="text-muted mb-4">
+                    Jeder Beitrag hilft dabei, das Spiel am Laufen zu halten und neue Features zu entwickeln.
+                  </p>
+                  <a 
+                    href="https://www.paypal.com/donate/?hosted_button_id=Z2RY7TUJNN8HC" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn btn-primary btn-lg"
+                  >
+                    💳 Jetzt spenden
+                  </a>
+                </Card.Body>
+              </Card>
+            </div>
+          </div>
+        </Container>
+      </div>
     </div>
   );
 };

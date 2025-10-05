@@ -25,6 +25,14 @@ const CustomNavbar = () => {
             <Nav.Link as={Link} to="/leaderboard">
               Leaderboard
             </Nav.Link>
+            <Nav.Link 
+              href="https://www.paypal.com/donate/?hosted_button_id=Z2RY7TUJNN8HC" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-success"
+            >
+              💝 Spenden
+            </Nav.Link>
           </Nav>
           
           <Nav>
