@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  foundCodes FoundCode[]
+  
+  @@map("users")
+}
+
+model QRCode {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  description String?
+  points      Int      @default(10)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  
+  foundCodes FoundCode[]
+  
+  @@map("qr_codes")
+}
+
+model FoundCode {
+  id        String   @id @default(cuid())
+  userId    String
+  qrCodeId  String
+  foundAt   DateTime @default(now())
+  location  String?
+  
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  qrCode QRCode @relation(fields: [qrCodeId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, qrCodeId])
+  @@map("found_codes")
+}
