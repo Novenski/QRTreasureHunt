@@ -58,21 +58,26 @@ const QRCodePage = () => {
     setClaimError('');
     
     try {
-      await qrAPI.claimQRCode(codeId);
+      console.log('Attempting to claim QR code:', codeId);
+      const response = await qrAPI.claimQRCode(codeId);
+      console.log('QR code claimed successfully:', response.data);
       setClaimed(true);
-      // Refresh QR code data
+      // Refresh QR code data to get updated found codes
       await fetchQRCode();
     } catch (err) {
-      setClaimError(err.response?.data?.error || 'Fehler beim Beanspruchen');
+      console.error('Error claiming QR code:', err);
+      const errorMessage = err.response?.data?.error || 'Fehler beim Beanspruchen';
+      setClaimError(errorMessage);
+      console.log('Claim error:', errorMessage);
     } finally {
       setClaiming(false);
     }
   };
 
-  // Auto-claim QR code if user is authenticated and hasn't claimed it yet
+  // Check claim status when QR code and user data are loaded
   useEffect(() => {
     if (isAuthenticated && !hasCheckedClaimStatus && qrCode && user) {
-      console.log('User is authenticated, checking if QR code should be auto-claimed...');
+      console.log('User is authenticated, checking QR code claim status...');
       setHasCheckedClaimStatus(true);
       
       // Check if this QR code was already found by this user
@@ -80,12 +85,12 @@ const QRCodePage = () => {
         foundCode.userId === user?.id
       );
       
-      if (!hasFoundThisCode) {
-        console.log('QR code not found by user yet, auto-claiming...');
-        handleClaim();
-      } else {
+      if (hasFoundThisCode) {
         console.log('QR code already found by user, setting as claimed');
         setClaimed(true);
+      } else {
+        console.log('QR code not found by user yet - ready to claim');
+        // Don't auto-claim, let user click the button
       }
     }
   }, [isAuthenticated, qrCode, user, hasCheckedClaimStatus]);
