@@ -16,6 +16,7 @@ const QRCodePage = () => {
   const [claimed, setClaimed] = useState(false);
   const [claimError, setClaimError] = useState('');
   const [hasCheckedClaimStatus, setHasCheckedClaimStatus] = useState(false);
+  const [redirectCountdown, setRedirectCountdown] = useState(0);
 
   useEffect(() => {
     fetchQRCode();
@@ -62,6 +63,21 @@ const QRCodePage = () => {
       const response = await qrAPI.claimQRCode(codeId);
       console.log('QR code claimed successfully:', response.data);
       setClaimed(true);
+      
+      // Start countdown for redirect
+      setRedirectCountdown(3);
+      const countdownInterval = setInterval(() => {
+        setRedirectCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(countdownInterval);
+            console.log('Redirecting to dashboard after successful claim');
+            navigate('/dashboard');
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      
       // Refresh QR code data to get updated found codes
       await fetchQRCode();
     } catch (err) {
@@ -144,13 +160,23 @@ const QRCodePage = () => {
             {/* Success Message */}
             {claimed && (
               <Alert variant="success" className="mb-4">
-                <Alert.Heading className="h5">
+                <Alert.Heading className="h4">
                   <span className="me-2">🎉</span>
                   QR-Code erfolgreich beansprucht!
                 </Alert.Heading>
-                <p className="mb-0">
-                  Du hast <Badge bg="success" className="fs-6">{qrCode?.points} Punkte</Badge> erhalten!
+                <p className="mb-3">
+                  Du hast <Badge bg="success" className="fs-5 px-3 py-2">{qrCode?.points} Punkte</Badge> erhalten!
                 </p>
+                {redirectCountdown > 0 && (
+                  <div className="d-flex align-items-center justify-content-center">
+                    <div className="spinner-border spinner-border-sm text-success me-2" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <span className="text-success fw-bold">
+                      Weiterleitung zum Dashboard in {redirectCountdown} Sekunden...
+                    </span>
+                  </div>
+                )}
               </Alert>
             )}
 
