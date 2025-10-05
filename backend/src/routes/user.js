@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 // Get user stats
 router.get('/stats', authMiddleware, async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.id;
 
     const foundCodes = await prisma.foundCode.findMany({
       where: { userId: userId },
@@ -41,8 +41,7 @@ router.get('/stats', authMiddleware, async (req, res) => {
 
     res.json({
       user: {
-        id: req.user.userId,
-        username: req.user.username
+        id: req.user.id
       },
       stats: {
         totalFound: foundCodes.length,
@@ -68,7 +67,7 @@ router.get('/stats', authMiddleware, async (req, res) => {
 // Get user's found codes
 router.get('/found-codes', authMiddleware, async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.id;
 
     const foundCodes = await prisma.foundCode.findMany({
       where: { userId: userId },

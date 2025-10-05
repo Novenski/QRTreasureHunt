@@ -98,7 +98,7 @@ router.get('/:codeId', async (req, res) => {
 router.post('/:codeId/claim', authMiddleware, async (req, res) => {
   try {
     const { codeId } = req.params;
-    const userId = req.user.userId;
+    const userId = req.user.id;
 
     // Check if QR code exists and is active
     const qrCode = await prisma.qRCode.findUnique({
