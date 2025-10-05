@@ -94,6 +94,41 @@ const AdminPage = () => {
     }
   };
 
+  const handleCopyQRCodeLink = async (qrCode) => {
+    try {
+      const qrCodeUrl = `${window.location.origin}/qr/${qrCode.code}`;
+      await navigator.clipboard.writeText(qrCodeUrl);
+      
+      // Show success message temporarily
+      const originalText = event.target.textContent;
+      event.target.textContent = '✅ Kopiert!';
+      event.target.className = 'btn btn-success btn-sm';
+      
+      setTimeout(() => {
+        event.target.textContent = originalText;
+        event.target.className = 'btn btn-outline-info btn-sm';
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = `${window.location.origin}/qr/${qrCode.code}`;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
+      const originalText = event.target.textContent;
+      event.target.textContent = '✅ Kopiert!';
+      event.target.className = 'btn btn-success btn-sm';
+      
+      setTimeout(() => {
+        event.target.textContent = originalText;
+        event.target.className = 'btn btn-outline-info btn-sm';
+      }, 2000);
+    }
+  };
+
   const handleEditQRCode = async (qrCode) => {
     const newName = prompt('Neuer Name:', qrCode.name);
     if (newName === null) return; // User cancelled
@@ -377,6 +412,14 @@ const AdminPage = () => {
                                     {qrCode.isActive ? 'Aktiv' : 'Inaktiv'}
                                   </Badge>
                                   <div className="d-flex gap-2 justify-content-end">
+                                    <Button
+                                      variant="outline-info"
+                                      size="sm"
+                                      onClick={() => handleCopyQRCodeLink(qrCode)}
+                                      title="Link kopieren für QR-Code Generator"
+                                    >
+                                      📋
+                                    </Button>
                                     <Button
                                       variant="outline-primary"
                                       size="sm"

@@ -171,22 +171,40 @@ const QRCodePage = () => {
             <Card className="border-0 shadow-sm mb-4">
               <Card.Body className="p-4">
                 <h2 className="h4 fw-bold text-primary mb-3">
-                  {qrCode?.gameExplanation?.title}
+                  🔥 Feuerwehr QR-Code Schatzsuche
                 </h2>
                 <p className="text-muted mb-4">
-                  {qrCode?.gameExplanation?.description}
+                  Glückwunsch! Du hast einen QR-Code der Feuerwehr-Schatzsuche gefunden! 
+                  Dieses Spiel ist speziell für die Kollegen der Feuerwache entwickelt worden.
                 </p>
                 
-                <div className="game-explanation">
-                  <h3 className="h6 fw-bold text-primary mb-3">So funktioniert das Spiel:</h3>
-                  <ul className="list-unstyled mb-0">
-                    {qrCode?.gameExplanation?.howToPlay?.map((step, index) => (
-                      <li key={index} className="mb-2">
-                        <span className="badge bg-primary me-2">{index + 1}</span>
-                        {step}
-                      </li>
-                    ))}
-                  </ul>
+                <div className="row mb-4">
+                  <div className="col-md-6">
+                    <h3 className="h5 fw-bold mb-3 text-success">✅ Spielregeln:</h3>
+                    <ul className="list-unstyled small">
+                      <li className="mb-2">✅ <strong>Zusammen spielen</strong> - Ihr könnt gerne im Team suchen</li>
+                      <li className="mb-2">✅ <strong>Alleine spielen</strong> - Jeder kann auch solo alle finden</li>
+                      <li className="mb-2">✅ <strong>Hilfe geben</strong> - Kollegen bei der Suche unterstützen</li>
+                      <li className="mb-2">✅ <strong>Fair play</strong> - Nur ein Account pro Person</li>
+                    </ul>
+                  </div>
+                  <div className="col-md-6">
+                    <h3 className="h5 fw-bold mb-3 text-danger">❌ Nicht erlaubt:</h3>
+                    <ul className="list-unstyled small">
+                      <li className="mb-2">❌ <strong>QR-Codes beschädigen</strong></li>
+                      <li className="mb-2">❌ <strong>Verstecke verraten</strong></li>
+                      <li className="mb-2">❌ <strong>Mehrere Accounts</strong></li>
+                      <li className="mb-2">❌ <strong>Betrug</strong></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="alert alert-info mb-0">
+                  <h4 className="alert-heading h5">🏆 Preis für alle Finder!</h4>
+                  <p className="mb-0">
+                    <strong>Wer alle QR-Codes findet, bekommt einen kleinen Preis!</strong><br/>
+                    Sammle Punkte und steige im Leaderboard auf. Viel Erfolg bei der Suche!
+                  </p>
                 </div>
               </Card.Body>
             </Card>
