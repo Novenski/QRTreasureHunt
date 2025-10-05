@@ -52,6 +52,7 @@ router.get('/stats', authMiddleware, async (req, res) => {
       foundCodes: foundCodes.map(foundCode => ({
         id: foundCode.id,
         qrCode: {
+          id: foundCode.qrCode.id,
           name: foundCode.qrCode.name,
           points: foundCode.qrCode.points
         },
@@ -83,6 +84,7 @@ router.get('/found-codes', authMiddleware, async (req, res) => {
       foundCodes: foundCodes.map(foundCode => ({
         id: foundCode.id,
         qrCode: {
+          id: foundCode.qrCode.id,
           name: foundCode.qrCode.name,
           description: foundCode.qrCode.description,
           points: foundCode.qrCode.points
