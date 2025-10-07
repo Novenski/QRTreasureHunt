@@ -114,10 +114,10 @@ const HomePage = () => {
                   <Col md="6">
                     <h6 className="text-success mb-2">✅ Erlaubt beim Suchen:</h6>
                     <ul className="small mb-3 mb-md-0">
-                      <li>QR-Codes können geöffnet, angehoben oder verschoben werden</li>
+                      <li>Verstecke können geöffnet, angehoben oder verschoben werden</li>
                       <li>Schau hinter, drunter, drüber, links & rechts</li>
                       <li>Alle Codes sind frei zugänglich</li>
-                      <li>Zusammenarbeit zwischen Gewerken ist nötig</li>
+                      <li>⚠️ Zusammenarbeit zwischen Gewerken ist nötig</li>
                     </ul>
                   </Col>
                   <Col md="6">

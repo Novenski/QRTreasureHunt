@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Card, Badge, Alert, Spinner, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Card, Button, Alert, Badge, Spinner } from 'react-bootstrap';
 import { qrAPI } from '../services/api.jsx';
 import { useAuth } from '../hooks/useAuth.jsx';
 
@@ -300,10 +300,10 @@ const QRCodePage = () => {
                 <Alert variant="info" className="mb-3">
                   <div className="fw-bold small mb-2">⚠️ Wichtige Hinweise zur Suche:</div>
                   <ul className="mb-0 small" style={{fontSize: '0.75rem'}}>
-                    <li>✅ QR-Codes können geöffnet, angehoben oder verschoben werden</li>
+                    <li>✅ Verstecke können geöffnet, angehoben oder verschoben werden</li>
                     <li>✅ Schau hinter, drunter, drüber, links & rechts</li>
                     <li>✅ Alle Codes sind frei zugänglich</li>
-                    <li>✅ Zusammenarbeit zwischen Gewerken ist nötig</li>
+                    <li>✅ ⚠️Zusammenarbeit zwischen Gewerken ist nötig</li>
                     <li className="text-danger fw-bold">❌ NICHTS abbauen, umbauen oder zerstören!</li>
                   </ul>
                 </Alert>
