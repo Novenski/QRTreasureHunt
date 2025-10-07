@@ -14,6 +14,7 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [rulesAccepted, setRulesAccepted] = useState(false);
   
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -33,6 +34,12 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!rulesAccepted) {
+      setError('Bitte bestätige, dass du die Hinweise gelesen hast');
+      return;
+    }
+    
     setLoading(true);
     setError('');
     setSuccess('');
@@ -152,12 +159,31 @@ const RegisterPage = () => {
                     />
                   </Form.Group>
 
+                  {/* Rules Acceptance */}
+                  <Alert variant="warning" className="mb-3">
+                    <div className="fw-bold small mb-2">⚠️ Wichtige Hinweise zur Suche:</div>
+                    <ul className="mb-2 small" style={{fontSize: '0.8rem'}}>
+                      <li>✅ QR-Codes können geöffnet, angehoben oder verschoben werden</li>
+                      <li>✅ Schau hinter, drunter, drüber, links & rechts</li>
+                      <li>✅ Zusammenarbeit zwischen Gewerken ist nötig</li>
+                      <li className="text-danger fw-bold">❌ NICHTS abbauen, umbauen oder zerstören!</li>
+                    </ul>
+                    <Form.Check
+                      type="checkbox"
+                      id="rulesAcceptedRegister"
+                      label={<span className="fw-semibold">Ich habe die Hinweise gelesen und verstanden</span>}
+                      checked={rulesAccepted}
+                      onChange={(e) => setRulesAccepted(e.target.checked)}
+                      className="mt-2"
+                    />
+                  </Alert>
+
                   <Button
                     type="submit"
                     variant="danger"
                     size="lg"
                     className="w-100 py-3 fw-semibold"
-                    disabled={loading}
+                    disabled={loading || !rulesAccepted}
                   >
                     {loading ? (
                       <>

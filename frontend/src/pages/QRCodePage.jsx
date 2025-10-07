@@ -295,6 +295,18 @@ const QRCodePage = () => {
                     </ol>
                   </Card.Body>
                 </Card>
+
+                {/* Important Notice */}
+                <Alert variant="info" className="mb-3">
+                  <div className="fw-bold small mb-2">⚠️ Wichtige Hinweise zur Suche:</div>
+                  <ul className="mb-0 small" style={{fontSize: '0.75rem'}}>
+                    <li>✅ QR-Codes können geöffnet, angehoben oder verschoben werden</li>
+                    <li>✅ Schau hinter, drunter, drüber, links & rechts</li>
+                    <li>✅ Alle Codes sind frei zugänglich</li>
+                    <li>✅ Zusammenarbeit zwischen Gewerken ist nötig</li>
+                    <li className="text-danger fw-bold">❌ NICHTS abbauen, umbauen oder zerstören!</li>
+                  </ul>
+                </Alert>
                 
                 {/* Rules - Compact */}
                 <div className="row g-2">

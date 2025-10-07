@@ -102,6 +102,39 @@ const HomePage = () => {
             </Col>
           </Row>
 
+          {/* Important Notice */}
+          <Row className="justify-content-center mb-4">
+            <Col lg="10">
+              <Alert variant="danger" className="mb-0">
+                <Alert.Heading className="h5 mb-3">
+                  <span className="me-2">⚠️</span>
+                  Wichtige Hinweise zur Suche
+                </Alert.Heading>
+                <Row>
+                  <Col md="6">
+                    <h6 className="text-success mb-2">✅ Erlaubt beim Suchen:</h6>
+                    <ul className="small mb-3 mb-md-0">
+                      <li>QR-Codes können geöffnet, angehoben oder verschoben werden</li>
+                      <li>Schau hinter, drunter, drüber, links & rechts</li>
+                      <li>Alle Codes sind frei zugänglich</li>
+                      <li>Zusammenarbeit zwischen Gewerken ist nötig</li>
+                    </ul>
+                  </Col>
+                  <Col md="6">
+                    <h6 className="text-danger mb-2">❌ Absolut verboten:</h6>
+                    <ul className="small mb-0">
+                      <li className="fw-bold">NICHTS abbauen oder umbauen!</li>
+                      <li className="fw-bold">NICHTS auseinanderbauen!</li>
+                      <li className="fw-bold">NICHTS zerstören!</li>
+                      <li>Codes beschädigen</li>
+                      <li>Mehrere Accounts</li>
+                    </ul>
+                  </Col>
+                </Row>
+              </Alert>
+            </Col>
+          </Row>
+
           {/* Compact Rules */}
           <Row className="justify-content-center">
             <Col lg="10">
@@ -109,7 +142,7 @@ const HomePage = () => {
                 <Col md="6">
                   <Card className="border-success border-opacity-25 bg-success bg-opacity-10 h-100">
                     <Card.Body className="p-3">
-                      <h5 className="h6 text-success mb-2">✅ Erlaubt</h5>
+                      <h5 className="h6 text-success mb-2">✅ Spielregeln</h5>
                       <ul className="list-unstyled small mb-0">
                         <li className="mb-1">• Im Team suchen</li>
                         <li className="mb-1">• Alleine spielen</li>
@@ -121,7 +154,7 @@ const HomePage = () => {
                 <Col md="6">
                   <Card className="border-danger border-opacity-25 bg-danger bg-opacity-10 h-100">
                     <Card.Body className="p-3">
-                      <h5 className="h6 text-danger mb-2">❌ Verboten</h5>
+                      <h5 className="h6 text-danger mb-2">❌ Nicht erlaubt</h5>
                       <ul className="list-unstyled small mb-0">
                         <li className="mb-1">• Codes beschädigen</li>
                         <li className="mb-1">• Verstecke verraten</li>
