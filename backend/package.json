@@ -6,8 +6,11 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
+    "build": "prisma generate",
+    "postinstall": "prisma generate",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
+    "db:push": "prisma db push",
     "db:seed": "node src/utils/seed.js",
     "db:create-admin": "node src/utils/createAdmin.js",
     "db:check": "node src/utils/checkDatabase.js"
