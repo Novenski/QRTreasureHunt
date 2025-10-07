@@ -161,60 +161,72 @@ const AdminPage = () => {
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
-      const margin = 20;
-      const qrSize = 80;
+      const margin = 10;
+      const qrSize = 50; // Kleiner für mehr Platz, aber noch gut scannbar
+      const spacing = 8; // Abstand zwischen QR-Codes
+      
+      // 2 Spalten Layout
+      const colWidth = (pageWidth - 3 * margin) / 2;
+      let xPosition = margin;
       let yPosition = margin;
+      let col = 0;
 
-      // Title
-      pdf.setFontSize(20);
-      pdf.setFont(undefined, 'bold');
-      pdf.text('QR Wachen Schatzsuche - QR-Codes', pageWidth / 2, yPosition, { align: 'center' });
-      yPosition += 15;
-
-      // Generate QR codes
+      // Generate QR codes in 2-column layout
       for (let i = 0; i < qrCodes.length; i++) {
         const qrCode = qrCodes[i];
         const qrUrl = `${window.location.origin}/qr/${qrCode.code}`;
 
         // Check if we need a new page
-        if (yPosition + qrSize + 30 > pageHeight - margin) {
-          pdf.addPage();
-          yPosition = margin;
+        if (yPosition + qrSize + 15 > pageHeight - margin) {
+          if (col === 1) {
+            // If in second column, move to new page
+            pdf.addPage();
+            yPosition = margin;
+            col = 0;
+            xPosition = margin;
+          } else {
+            // Move to second column
+            col = 1;
+            xPosition = margin + colWidth + margin;
+            yPosition = margin;
+          }
         }
 
         // Create QR code using qrcode library
         const QRCodeLib = await import('qrcode');
         const qrDataUrl = await QRCodeLib.default.toDataURL(qrUrl, {
           width: 300,
-          margin: 2,
+          margin: 1,
           errorCorrectionLevel: 'H'
         });
-        const xPosition = (pageWidth - qrSize) / 2;
-        pdf.addImage(qrDataUrl, 'PNG', xPosition, yPosition, qrSize, qrSize);
+        
+        // Center QR code in column
+        const qrXPos = xPosition + (colWidth - qrSize) / 2;
+        pdf.addImage(qrDataUrl, 'PNG', qrXPos, yPosition, qrSize, qrSize);
 
-        // Add QR code info
-        yPosition += qrSize + 5;
-        pdf.setFontSize(14);
+        // Add only the name below QR code
+        yPosition += qrSize + 3;
+        pdf.setFontSize(12);
         pdf.setFont(undefined, 'bold');
-        pdf.text(qrCode.name, pageWidth / 2, yPosition, { align: 'center' });
+        pdf.text(qrCode.name, xPosition + colWidth / 2, yPosition, { align: 'center', maxWidth: colWidth - 5 });
         
-        yPosition += 7;
-        pdf.setFontSize(10);
-        pdf.setFont(undefined, 'normal');
-        pdf.text(`Code: ${qrCode.code} | Punkte: ${qrCode.points}`, pageWidth / 2, yPosition, { align: 'center' });
-        
-        if (qrCode.description) {
-          yPosition += 5;
-          pdf.setFontSize(9);
-          pdf.text(qrCode.description, pageWidth / 2, yPosition, { align: 'center', maxWidth: pageWidth - 2 * margin });
+        // Move to next position
+        if (col === 0) {
+          // Move to second column
+          col = 1;
+          xPosition = margin + colWidth + margin;
+          yPosition -= (qrSize + 3); // Go back up for second column
+        } else {
+          // Move to next row
+          col = 0;
+          xPosition = margin;
+          yPosition += spacing;
         }
-
-        yPosition += 15; // Space before next QR code
       }
 
       // Save PDF
       pdf.save(`QR-Codes-${new Date().toISOString().split('T')[0]}.pdf`);
-      alert('PDF erfolgreich erstellt!');
+      alert(`PDF mit ${qrCodes.length} QR-Codes erfolgreich erstellt!`);
     } catch (err) {
       console.error('PDF generation error:', err);
       alert('Fehler beim Erstellen der PDF');
