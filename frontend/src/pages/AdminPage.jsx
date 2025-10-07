@@ -182,12 +182,13 @@ const AdminPage = () => {
         <Row className="mb-5">
           <Col>
             <div className="text-center">
-              <h1 className="display-5 fw-bold text-primary mb-3">
-                <span className="me-2">👨‍💼</span>
-                Admin Dashboard
+              <h1 className="display-5 fw-bold text-danger mb-3">
+                <span className="me-2">🔥</span>
+                QR Wachen Admin Dashboard
+                <span className="ms-2">👨‍💼</span>
               </h1>
               <p className="lead text-muted">
-                Verwaltung der QR-Code Schatzsuche
+                Verwaltung der QR Wachen Schatzsuche
               </p>
             </div>
           </Col>

@@ -54,20 +54,20 @@ const LoginPage = () => {
       <Container>
         <Row className="justify-content-center">
           <Col md="8" lg="6" xl="5">
-            <Card className="border-0 shadow-lg">
+            <Card className="border-0 shadow-lg fade-in">
               <Card.Body className="p-5">
                 {/* Header */}
                 <div className="text-center mb-5">
-                  <div className="display-4 text-primary mb-3">🎯</div>
-                  <h1 className="h2 fw-bold text-primary mb-2">Willkommen zurück!</h1>
-                  <p className="text-muted">
-                    Melde dich an, um deine QR-Code-Schatzsuche fortzusetzen
+                  <div className="display-4 text-danger mb-3 pulse-animation">🔥</div>
+                  <h1 className="h2 fw-bold text-danger mb-2 slide-in-left">QR Wachen Login</h1>
+                  <p className="text-muted slide-in-right">
+                    Melde dich in deinem Konto an
                   </p>
                 </div>
 
                 {/* Error Alert */}
                 {error && (
-                  <Alert variant="danger" className="mb-4" dismissible onClose={() => setError('')}>
+                  <Alert variant="danger" className="mb-4 scale-in" dismissible onClose={() => setError('')}>
                     <Alert.Heading className="h6">
                       <span className="me-2">⚠️</span>
                       Anmeldung fehlgeschlagen
@@ -108,7 +108,7 @@ const LoginPage = () => {
 
                   <Button
                     type="submit"
-                    variant="primary"
+                    variant="danger"
                     size="lg"
                     className="w-100 py-3 fw-semibold"
                     disabled={loading}
@@ -120,7 +120,7 @@ const LoginPage = () => {
                       </>
                     ) : (
                       <>
-                        <span className="me-2">🚀</span>
+                        <span className="me-2">🔥</span>
                         Anmelden
                       </>
                     )}

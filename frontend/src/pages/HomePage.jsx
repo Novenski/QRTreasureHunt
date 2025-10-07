@@ -9,31 +9,32 @@ const HomePage = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="hero-section py-5">
-        <Container>
+      <div className="hero-section py-5" style={{ position: 'relative', zIndex: 1 }}>
+        <Container style={{ position: 'relative', zIndex: 2 }}>
           <Row className="justify-content-center text-center">
-            <Col lg="8">
-              <h1 className="display-4 fw-bold mb-4">
-                🔥 Feuerwehr QR-Code Schatzsuche
+            <Col lg="8" className="fade-in">
+              <div className="display-1 mb-4 pulse-animation">🔥</div>
+              <h1 className="display-3 fw-bold mb-4">
+                QR Wachen Schatzsuche
               </h1>
-              <p className="lead mb-4">
-                Eine spannende Schatzsuche für die Kollegen der Feuerwache!
+              <p className="lead mb-4 fs-4">
+                Eine spannende Schatzsuche für die Kollegen der Wache!
               </p>
-              <Badge bg="danger" className="fs-6 mb-4 d-block">
+              <Badge bg="warning" text="dark" className="fs-5 mb-5 d-inline-block px-4 py-3 glow-animation">
                 🏆 Wer alle QR-Codes findet, bekommt einen kleinen Preis!
               </Badge>
-              <div className="d-flex gap-3 justify-content-center">
+              <div className="d-flex gap-3 justify-content-center mt-4">
                 {isAuthenticated ? (
-                  <Link to="/dashboard" className="btn btn-light btn-lg">
-                    Zum Dashboard
+                  <Link to="/dashboard" className="btn btn-light btn-lg px-5 py-3">
+                    📊 Zum Dashboard
                   </Link>
                 ) : (
                   <>
-                    <Link to="/register" className="btn btn-light btn-lg">
-                      Jetzt mitspielen
+                    <Link to="/register" className="btn btn-warning btn-lg px-5 py-3 text-dark fw-bold">
+                      🚀 Jetzt mitspielen
                     </Link>
-                    <Link to="/login" className="btn btn-outline-light btn-lg">
-                      Anmelden
+                    <Link to="/login" className="btn btn-outline-light btn-lg px-5 py-3">
+                      🔑 Anmelden
                     </Link>
                   </>
                 )}

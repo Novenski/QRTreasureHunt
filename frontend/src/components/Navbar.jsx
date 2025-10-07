@@ -13,23 +13,24 @@ const CustomNavbar = () => {
   };
 
   return (
-    <Navbar bg="white" expand="lg" className="shadow-sm border-bottom">
+    <Navbar bg="danger" variant="dark" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand as={Link} to="/" className="fw-bold text-primary">
-          🎯 QR Hunt
+        <Navbar.Brand as={Link} to="/" className="fw-bold">
+          <span className="me-2">🔥</span>
+          QR Wachen Schatzsuche
         </Navbar.Brand>
         
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/leaderboard">
-              Leaderboard
+            <Nav.Link as={Link} to="/leaderboard" className="text-white">
+              🏆 Leaderboard
             </Nav.Link>
             <Nav.Link 
               href="https://www.paypal.com/donate/?hosted_button_id=Z2RY7TUJNN8HC" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-success"
+              className="text-warning fw-semibold"
             >
               💝 Spenden
             </Nav.Link>
@@ -38,30 +39,30 @@ const CustomNavbar = () => {
           <Nav>
             {isAuthenticated ? (
               <>
-                <Nav.Link as={Link} to="/dashboard">
-                  Dashboard
+                <Nav.Link as={Link} to="/dashboard" className="text-white">
+                  📊 Dashboard
                 </Nav.Link>
                 
                 {user?.isAdmin && (
-                  <Nav.Link as={Link} to="/admin">
-                    Admin
+                  <Nav.Link as={Link} to="/admin" className="text-white">
+                    👨‍💼 Admin
                   </Nav.Link>
                 )}
                 
-                <Navbar.Text className="me-3">
-                  Hallo, {user?.username}!
+                <Navbar.Text className="me-3 text-white">
+                  👋 {user?.username}
                 </Navbar.Text>
-                <Nav.Link onClick={handleLogout}>
-                  Abmelden
+                <Nav.Link onClick={handleLogout} className="text-white">
+                  🚪 Abmelden
                 </Nav.Link>
               </>
             ) : (
               <>
-                <Nav.Link as={Link} to="/login">
-                  Anmelden
+                <Nav.Link as={Link} to="/login" className="text-white">
+                  🔑 Anmelden
                 </Nav.Link>
-                <Nav.Link as={Link} to="/register" className="btn btn-primary text-white">
-                  Registrieren
+                <Nav.Link as={Link} to="/register" className="btn btn-warning text-dark fw-semibold ms-2">
+                  📝 Registrieren
                 </Nav.Link>
               </>
             )}

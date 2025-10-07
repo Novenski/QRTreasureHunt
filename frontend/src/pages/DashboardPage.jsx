@@ -102,14 +102,16 @@ const DashboardPage = () => {
     <div className="min-vh-100 bg-light">
       <Container className="py-5">
         {/* Welcome Header */}
-        <Row className="mb-5">
+        <Row className="mb-5 fade-in">
           <Col>
             <div className="text-center">
-              <h1 className="display-5 fw-bold text-primary mb-3">
-                Willkommen zurück, {user?.username}! 👋
+              <h1 className="display-5 fw-bold text-danger mb-3">
+                <span className="me-2">🔥</span>
+                Willkommen zurück, {user?.username}!
+                <span className="ms-2">👋</span>
               </h1>
               <p className="lead text-muted">
-                Hier ist dein Dashboard mit deinen Statistiken und Erfolgen
+                Dein Dashboard mit Statistiken und Erfolgen
               </p>
             </div>
           </Col>
@@ -118,7 +120,7 @@ const DashboardPage = () => {
         {/* Stats Cards */}
         <Row className="g-4 mb-5">
           <Col md="3">
-            <Card className="h-100 border-0 shadow-sm stats-card">
+            <Card className="h-100 border-0 shadow-sm stats-card card-hover fade-in delay-1">
               <Card.Body className="text-center">
                 <div className="display-4 text-primary mb-2">🎯</div>
                 <h3 className="h2 fw-bold text-primary mb-1">
@@ -130,7 +132,7 @@ const DashboardPage = () => {
           </Col>
           
           <Col md="3">
-            <Card className="h-100 border-0 shadow-sm stats-card">
+            <Card className="h-100 border-0 shadow-sm stats-card card-hover fade-in delay-2">
               <Card.Body className="text-center">
                 <div className="display-4 text-success mb-2">⭐</div>
                 <h3 className="h2 fw-bold text-success mb-1">
@@ -142,7 +144,7 @@ const DashboardPage = () => {
           </Col>
           
           <Col md="3">
-            <Card className="h-100 border-0 shadow-sm stats-card">
+            <Card className="h-100 border-0 shadow-sm stats-card card-hover fade-in delay-3">
               <Card.Body className="text-center">
                 <div className="display-4 text-warning mb-2">🏆</div>
                 <h3 className="h2 fw-bold text-warning mb-1">
@@ -154,7 +156,7 @@ const DashboardPage = () => {
           </Col>
           
           <Col md="3">
-            <Card className="h-100 border-0 shadow-sm stats-card">
+            <Card className="h-100 border-0 shadow-sm stats-card card-hover fade-in delay-4">
               <Card.Body className="text-center">
                 <div className="display-4 text-info mb-2">👥</div>
                 <h3 className="h2 fw-bold text-info mb-1">
@@ -186,11 +188,11 @@ const DashboardPage = () => {
         </Row>
 
         {/* QR Codes Overview */}
-        <Row className="mb-5">
+        <Row className="mb-5 fade-in delay-5">
           <Col>
-            <Card className="border-0 shadow-sm">
+            <Card className="border-0 shadow-sm card-hover">
               <Card.Header className="bg-white border-0 py-4">
-                <h2 className="h4 fw-bold mb-0">
+                <h2 className="h4 fw-bold text-danger mb-0">
                   <span className="me-2">🗺️</span>
                   QR-Code Karte
                 </h2>

@@ -74,26 +74,29 @@ const RegisterPage = () => {
       <Container>
         <Row className="justify-content-center">
           <Col md="6" lg="5">
-            <Card className="shadow-lg border-0">
+            <Card className="shadow-lg border-0 fade-in">
               <Card.Body className="p-5">
                 <div className="text-center mb-4">
-                  <div className="display-4 mb-3">🎯</div>
-                  <h2 className="h3 mb-2 fw-bold">Registrieren</h2>
-                  <p className="text-muted">
+                  <div className="display-4 text-danger mb-3 pulse-animation">🔥</div>
+                  <h2 className="h3 mb-2 fw-bold text-danger slide-in-left">QR Wachen Registrierung</h2>
+                  <p className="text-muted slide-in-right">
                     Erstelle dein Konto und starte die Schatzsuche!
                   </p>
                 </div>
                 
                 {error && (
-                  <Alert variant="danger" className="mb-4" dismissible onClose={() => setError('')}>
+                  <Alert variant="danger" className="mb-4 scale-in" dismissible onClose={() => setError('')}>
                     <Alert.Heading className="h6">Registrierung fehlgeschlagen</Alert.Heading>
                     {error}
                   </Alert>
                 )}
                 
                 {success && (
-                  <Alert variant="success" className="mb-4">
-                    <Alert.Heading className="h6">Erfolgreich!</Alert.Heading>
+                  <Alert variant="success" className="mb-4 scale-in">
+                    <Alert.Heading className="h6">
+                      <span className="me-2 pulse-animation">🎉</span>
+                      Erfolgreich!
+                    </Alert.Heading>
                     {success}
                   </Alert>
                 )}
@@ -154,7 +157,7 @@ const RegisterPage = () => {
 
                   <Button
                     type="submit"
-                    variant="primary"
+                    variant="danger"
                     size="lg"
                     className="w-100 py-3 fw-semibold"
                     disabled={loading}
@@ -165,7 +168,10 @@ const RegisterPage = () => {
                         Wird registriert...
                       </>
                     ) : (
-                      'Konto erstellen'
+                      <>
+                        <span className="me-2">🔥</span>
+                        Konto erstellen
+                      </>
                     )}
                   </Button>
                 </Form>

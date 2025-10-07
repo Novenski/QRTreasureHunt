@@ -72,15 +72,16 @@ const LeaderboardPage = () => {
     <div className="min-vh-100 bg-light">
       <Container className="py-5">
         {/* Header */}
-        <Row className="mb-5">
+        <Row className="mb-5 fade-in">
           <Col>
             <div className="text-center">
-              <h1 className="display-4 fw-bold text-primary mb-4">
-                <span className="me-3">🏆</span>
-                Leaderboard
+              <h1 className="display-4 fw-bold text-danger mb-4">
+                <span className="me-3">🔥</span>
+                QR Wachen Leaderboard
+                <span className="ms-3">🏆</span>
               </h1>
               <p className="lead text-muted">
-                Die besten QR-Code-Jäger der Schatzsuche
+                Wer hat die meisten QR-Codes gefunden?
               </p>
             </div>
           </Col>
@@ -89,7 +90,7 @@ const LeaderboardPage = () => {
         {/* Stats */}
         <Row className="mb-5">
           <Col md="4">
-            <Card className="border-0 shadow-sm text-center">
+            <Card className="border-0 shadow-sm text-center card-hover fade-in delay-1">
               <Card.Body className="py-4">
                 <div className="display-6 text-primary mb-2">👥</div>
                 <h3 className="h2 fw-bold text-primary mb-1">
@@ -100,7 +101,7 @@ const LeaderboardPage = () => {
             </Card>
           </Col>
           <Col md="4">
-            <Card className="border-0 shadow-sm text-center">
+            <Card className="border-0 shadow-sm text-center card-hover fade-in delay-2">
               <Card.Body className="py-4">
                 <div className="display-6 text-success mb-2">🎯</div>
                 <h3 className="h2 fw-bold text-success mb-1">
@@ -111,7 +112,7 @@ const LeaderboardPage = () => {
             </Card>
           </Col>
           <Col md="4">
-            <Card className="border-0 shadow-sm text-center">
+            <Card className="border-0 shadow-sm text-center card-hover fade-in delay-3">
               <Card.Body className="py-4">
                 <div className="display-6 text-warning mb-2">⭐</div>
                 <h3 className="h2 fw-bold text-warning mb-1">

@@ -160,16 +160,16 @@ const QRCodePage = () => {
           <Col lg="8">
             {/* Success Message */}
             {claimed && (
-              <Alert variant="success" className="mb-4">
+              <Alert variant="success" className="mb-4 scale-in">
                 <Alert.Heading className="h4">
-                  <span className="me-2">🎉</span>
+                  <span className="me-2 pulse-animation">🎉</span>
                   QR-Code erfolgreich beansprucht!
                 </Alert.Heading>
                 <p className="mb-3">
-                  Du hast <Badge bg="success" className="fs-5 px-3 py-2">{qrCode?.points} Punkte</Badge> erhalten!
+                  Du hast <Badge bg="success" className="fs-5 px-3 py-2 pulse-animation">{qrCode?.points} Punkte</Badge> erhalten!
                 </p>
                 {redirectCountdown > 0 && (
-                  <div className="d-flex align-items-center justify-content-center">
+                  <div className="d-flex align-items-center justify-content-center fade-in">
                     <div className="spinner-border spinner-border-sm text-success me-2" role="status">
                       <span className="visually-hidden">Loading...</span>
                     </div>
@@ -182,17 +182,17 @@ const QRCodePage = () => {
             )}
 
             {/* QR Code Info */}
-            <Card className="border-0 shadow-sm mb-4">
+            <Card className="border-0 shadow-sm mb-4 card-hover fade-in">
               <Card.Body className="text-center p-5">
-                <div className="display-1 mb-4">🎯</div>
-                <h1 className="display-5 fw-bold text-primary mb-3">
+                <div className="display-1 mb-4 scale-in">🔥</div>
+                <h1 className="display-5 fw-bold text-danger mb-3 slide-in-left">
                   {qrCode?.name}
                 </h1>
-                <Badge bg="primary" className="fs-5 px-3 py-2 mb-4">
+                <Badge bg="danger" className="fs-5 px-3 py-2 mb-4 glow-animation">
                   {qrCode?.points} Punkte
                 </Badge>
                 {qrCode?.description && (
-                  <p className="lead text-muted mb-4">
+                  <p className="lead text-muted mb-4 slide-in-right">
                     {qrCode.description}
                   </p>
                 )}
@@ -200,15 +200,20 @@ const QRCodePage = () => {
             </Card>
 
             {/* Game Explanation */}
-            <Card className="border-0 shadow-sm mb-4">
+            <Card className="border-0 shadow-sm mb-4 card-hover fade-in delay-1">
               <Card.Body className="p-4">
-                <h2 className="h4 fw-bold text-primary mb-3">
-                  🔥 Feuerwehr QR-Code Schatzsuche
-                </h2>
-                <p className="text-muted mb-4">
-                  Glückwunsch! Du hast einen QR-Code der Feuerwehr-Schatzsuche gefunden! 
-                  Dieses Spiel ist speziell für die Kollegen der Feuerwache entwickelt worden.
-                </p>
+                <div className="text-center mb-4">
+                  <h2 className="h3 fw-bold text-danger mb-3">
+                    <span className="me-2">🔥</span>
+                    QR Wachen Schatzsuche
+                  </h2>
+                  <p className="text-muted lead">
+                    Glückwunsch! Du hast einen QR-Code gefunden!
+                  </p>
+                  <p className="text-muted">
+                    Dieses Spiel ist speziell für die Kollegen der Wache entwickelt worden.
+                  </p>
+                </div>
                 
                 <div className="row mb-4">
                   <div className="col-md-6">
@@ -242,7 +247,7 @@ const QRCodePage = () => {
             </Card>
 
             {/* Action Buttons */}
-            <Card className="border-0 shadow-sm mb-4">
+            <Card className="border-0 shadow-sm mb-4 card-hover fade-in delay-2">
               <Card.Body className="text-center p-4">
                 {isAuthenticated ? (
                   <>
@@ -300,9 +305,19 @@ const QRCodePage = () => {
                   </>
                 ) : (
                   <div>
-                    <p className="text-muted mb-4">
-                      Melde dich an oder registriere dich, um den QR-Code zu beanspruchen!
-                    </p>
+                    <Alert variant="warning" className="mb-4">
+                      <Alert.Heading className="h6">
+                        <span className="me-2">🔐</span>
+                        Anmeldung erforderlich
+                      </Alert.Heading>
+                      <p className="mb-3">
+                        Um diesen QR-Code zu beanspruchen und Punkte zu sammeln, musst du dich anmelden oder registrieren.
+                      </p>
+                      <div className="small text-muted">
+                        <strong>Nach der Anmeldung:</strong> Du wirst automatisch zu diesem QR-Code zurückgeleitet und kannst ihn beanspruchen!
+                      </div>
+                    </Alert>
+                    
                     <div className="d-grid gap-3 d-md-flex justify-content-md-center">
                       <Button
                         variant="primary"
@@ -310,7 +325,7 @@ const QRCodePage = () => {
                         onClick={() => navigate(`/login?returnTo=/qr/${codeId}`)}
                         className="px-4"
                       >
-                        Anmelden
+                        🔑 Anmelden
                       </Button>
                       <Button
                         variant="outline-primary"
@@ -318,8 +333,14 @@ const QRCodePage = () => {
                         onClick={() => navigate(`/register?returnTo=/qr/${codeId}`)}
                         className="px-4"
                       >
-                        Registrieren
+                        📝 Registrieren
                       </Button>
+                    </div>
+                    
+                    <div className="mt-4">
+                      <small className="text-muted">
+                        💡 <strong>Tipp:</strong> Nach der Anmeldung/Registrierung kommst du automatisch hierher zurück!
+                      </small>
                     </div>
                   </div>
                 )}
