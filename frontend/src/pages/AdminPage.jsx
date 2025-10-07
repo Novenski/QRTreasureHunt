@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert, Badge, Spinner, Tab, Tabs } from 'react-bootstrap';
 import { adminAPI } from '../services/api.jsx';
+import jsPDF from 'jspdf';
 
 const AdminPage = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -9,6 +10,7 @@ const AdminPage = () => {
   const [qrCodes, setQrCodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [generatingPDF, setGeneratingPDF] = useState(false);
 
   // New QR Code Form
   const [newQRCode, setNewQRCode] = useState({
@@ -150,6 +152,74 @@ const AdminPage = () => {
       alert('QR-Code erfolgreich aktualisiert!');
     } catch (err) {
       alert(err.response?.data?.error || 'Fehler beim Aktualisieren');
+    }
+  };
+
+  const generateQRCodesPDF = async () => {
+    setGeneratingPDF(true);
+    try {
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 20;
+      const qrSize = 80;
+      let yPosition = margin;
+
+      // Title
+      pdf.setFontSize(20);
+      pdf.setFont(undefined, 'bold');
+      pdf.text('QR Wachen Schatzsuche - QR-Codes', pageWidth / 2, yPosition, { align: 'center' });
+      yPosition += 15;
+
+      // Generate QR codes
+      for (let i = 0; i < qrCodes.length; i++) {
+        const qrCode = qrCodes[i];
+        const qrUrl = `${window.location.origin}/qr/${qrCode.code}`;
+
+        // Check if we need a new page
+        if (yPosition + qrSize + 30 > pageHeight - margin) {
+          pdf.addPage();
+          yPosition = margin;
+        }
+
+        // Create QR code using qrcode library
+        const QRCodeLib = await import('qrcode');
+        const qrDataUrl = await QRCodeLib.default.toDataURL(qrUrl, {
+          width: 300,
+          margin: 2,
+          errorCorrectionLevel: 'H'
+        });
+        const xPosition = (pageWidth - qrSize) / 2;
+        pdf.addImage(qrDataUrl, 'PNG', xPosition, yPosition, qrSize, qrSize);
+
+        // Add QR code info
+        yPosition += qrSize + 5;
+        pdf.setFontSize(14);
+        pdf.setFont(undefined, 'bold');
+        pdf.text(qrCode.name, pageWidth / 2, yPosition, { align: 'center' });
+        
+        yPosition += 7;
+        pdf.setFontSize(10);
+        pdf.setFont(undefined, 'normal');
+        pdf.text(`Code: ${qrCode.code} | Punkte: ${qrCode.points}`, pageWidth / 2, yPosition, { align: 'center' });
+        
+        if (qrCode.description) {
+          yPosition += 5;
+          pdf.setFontSize(9);
+          pdf.text(qrCode.description, pageWidth / 2, yPosition, { align: 'center', maxWidth: pageWidth - 2 * margin });
+        }
+
+        yPosition += 15; // Space before next QR code
+      }
+
+      // Save PDF
+      pdf.save(`QR-Codes-${new Date().toISOString().split('T')[0]}.pdf`);
+      alert('PDF erfolgreich erstellt!');
+    } catch (err) {
+      console.error('PDF generation error:', err);
+      alert('Fehler beim Erstellen der PDF');
+    } finally {
+      setGeneratingPDF(false);
     }
   };
 
@@ -309,6 +379,29 @@ const AdminPage = () => {
 
               <Tab eventKey="qr-codes" title="🎯 QR-Codes">
                 <div className="p-4">
+                  {/* PDF Export Button */}
+                  <div className="mb-4 text-end">
+                    <Button 
+                      variant="danger" 
+                      size="lg" 
+                      onClick={generateQRCodesPDF}
+                      disabled={generatingPDF || qrCodes.length === 0}
+                      className="px-4"
+                    >
+                      {generatingPDF ? (
+                        <>
+                          <Spinner animation="border" size="sm" className="me-2" />
+                          PDF wird erstellt...
+                        </>
+                      ) : (
+                        <>
+                          <span className="me-2">📄</span>
+                          Alle QR-Codes als PDF exportieren ({qrCodes.length})
+                        </>
+                      )}
+                    </Button>
+                  </div>
+
                   {/* Create New QR Code */}
                   <Card className="border-0 shadow-sm mb-4">
                     <Card.Header className="bg-white border-0 py-4">
