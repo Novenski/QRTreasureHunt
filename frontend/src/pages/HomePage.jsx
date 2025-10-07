@@ -14,15 +14,18 @@ const HomePage = () => {
           <Row className="justify-content-center text-center">
             <Col lg="8" className="fade-in">
               <div className="display-1 mb-4 pulse-animation">🔥</div>
-              <h1 className="display-3 fw-bold mb-4">
+              <h1 className="display-3 display-md-2 fw-bold mb-3">
                 QR Wachen Schatzsuche
               </h1>
-              <p className="lead mb-4 fs-4">
-                Eine spannende Schatzsuche für die Kollegen der Wache!
+              <p className="lead mb-3 fs-5 fs-md-4">
+                Spannende Schatzsuche für die Wache!
               </p>
-              <Badge bg="warning" text="dark" className="fs-5 mb-5 d-inline-block px-4 py-3 glow-animation">
-                🏆 Wer alle QR-Codes findet, bekommt einen kleinen Preis!
-              </Badge>
+              {/* Mobile-optimized Prize Badge */}
+              <div className="mb-4">
+                <Badge bg="warning" text="dark" className="fs-6 fs-md-5 d-inline-block px-3 px-md-4 py-2 py-md-3 glow-animation" style={{maxWidth: '90%'}}>
+                  🏆 Alle Codes finden = Preis!
+                </Badge>
+              </div>
               <div className="d-flex gap-3 justify-content-center mt-4">
                 {isAuthenticated ? (
                   <Link to="/dashboard" className="btn btn-light btn-lg px-5 py-3">
@@ -47,77 +50,89 @@ const HomePage = () => {
       {/* Game Rules Section */}
       <div className="py-5 bg-white">
         <Container>
-          <Row className="text-center mb-5">
+          <Row className="text-center mb-4">
             <Col>
-              <h2 className="h1 mb-4">🎮 Spielregeln & Prinzip</h2>
-              <p className="lead text-muted">
-                So funktioniert unsere Feuerwehr-Schatzsuche
+              <h2 className="h2 mb-3">🎮 So funktioniert's</h2>
+              <p className="text-muted">
+                Einfache Schritte zur Schatzsuche
               </p>
             </Col>
           </Row>
           
-          <Row className="g-4 mb-5">
-            <Col md="6" lg="3" className="text-center">
-              <div className="feature-icon mb-3">📱</div>
-              <h3 className="h5 mb-3">QR-Code scannen</h3>
-              <p className="text-muted small">
-                Scanne versteckte QR-Codes mit deinem Handy - sie leiten dich zur Website weiter
-              </p>
+          {/* Simplified Steps */}
+          <Row className="g-3 mb-4">
+            <Col xs="6" md="3" className="text-center">
+              <Card className="border-0 shadow-sm h-100 card-hover">
+                <Card.Body className="p-3">
+                  <div className="fs-1 mb-2">📱</div>
+                  <h3 className="h6 fw-bold mb-1">1. Scannen</h3>
+                  <p className="small text-muted mb-0">QR-Code finden</p>
+                </Card.Body>
+              </Card>
             </Col>
             
-            <Col md="6" lg="3" className="text-center">
-              <div className="feature-icon mb-3">🎯</div>
-              <h3 className="h5 mb-3">Anmelden & Beanspruchen</h3>
-              <p className="text-muted small">
-                Registriere dich oder melde dich an, um den QR-Code zu beanspruchen
-              </p>
+            <Col xs="6" md="3" className="text-center">
+              <Card className="border-0 shadow-sm h-100 card-hover">
+                <Card.Body className="p-3">
+                  <div className="fs-1 mb-2">🔑</div>
+                  <h3 className="h6 fw-bold mb-1">2. Anmelden</h3>
+                  <p className="small text-muted mb-0">Account erstellen</p>
+                </Card.Body>
+              </Card>
             </Col>
             
-            <Col md="6" lg="3" className="text-center">
-              <div className="feature-icon mb-3">🏆</div>
-              <h3 className="h5 mb-3">Punkte sammeln</h3>
-              <p className="text-muted small">
-                Sammle Punkte und steige im Leaderboard auf
-              </p>
+            <Col xs="6" md="3" className="text-center">
+              <Card className="border-0 shadow-sm h-100 card-hover">
+                <Card.Body className="p-3">
+                  <div className="fs-1 mb-2">⭐</div>
+                  <h3 className="h6 fw-bold mb-1">3. Sammeln</h3>
+                  <p className="small text-muted mb-0">Punkte erhalten</p>
+                </Card.Body>
+              </Card>
             </Col>
             
-            <Col md="6" lg="3" className="text-center">
-              <div className="feature-icon mb-3">🎁</div>
-              <h3 className="h5 mb-3">Preis gewinnen</h3>
-              <p className="text-muted small">
-                Wer alle QR-Codes findet, bekommt einen kleinen Preis!
-              </p>
+            <Col xs="6" md="3" className="text-center">
+              <Card className="border-0 shadow-sm h-100 card-hover">
+                <Card.Body className="p-3">
+                  <div className="fs-1 mb-2">🏆</div>
+                  <h3 className="h6 fw-bold mb-1">4. Gewinnen</h3>
+                  <p className="small text-muted mb-0">Preis erhalten</p>
+                </Card.Body>
+              </Card>
             </Col>
           </Row>
 
-          {/* Game Rules Card */}
+          {/* Compact Rules */}
           <Row className="justify-content-center">
-            <Col lg="8">
-              <Card className="border-0 shadow-sm">
-                <Card.Body className="p-4">
-                  <h3 className="h4 mb-4 text-center">📋 Spielregeln</h3>
-                  <Row>
-                    <Col md="6">
-                      <h5 className="text-primary mb-3">✅ Erlaubt:</h5>
-                      <ul className="list-unstyled">
-                        <li className="mb-2">✅ <strong>Zusammen spielen</strong> - Ihr könnt gerne im Team suchen</li>
-                        <li className="mb-2">✅ <strong>Alleine spielen</strong> - Jeder kann auch solo alle finden</li>
-                        <li className="mb-2">✅ <strong>Hilfe geben</strong> - Kollegen bei der Suche unterstützen</li>
-                        <li className="mb-2">✅ <strong>Mehrfach scannen</strong> - QR-Codes können mehrfach gescannt werden</li>
+            <Col lg="10">
+              <Row className="g-3">
+                <Col md="6">
+                  <Card className="border-success border-opacity-25 bg-success bg-opacity-10 h-100">
+                    <Card.Body className="p-3">
+                      <h5 className="h6 text-success mb-2">✅ Erlaubt</h5>
+                      <ul className="list-unstyled small mb-0">
+                        <li className="mb-1">• Im Team suchen</li>
+                        <li className="mb-1">• Alleine spielen</li>
+                        <li className="mb-1">• Tipps geben</li>
+                        <li className="mb-0">• Codes mehrfach scannen</li>
                       </ul>
-                    </Col>
-                    <Col md="6">
-                      <h5 className="text-danger mb-3">❌ Nicht erlaubt:</h5>
-                      <ul className="list-unstyled">
-                        <li className="mb-2">❌ <strong>QR-Codes beschädigen</strong> - Bitte nicht zerstören</li>
-                        <li className="mb-2">❌ <strong>Verstecke verraten</strong> - Anderen nicht die Standorte verraten</li>
-                        <li className="mb-2">❌ <strong>Mehrere Accounts</strong> - Nur ein Account pro Person</li>
-                        <li className="mb-2">❌ <strong>Betrug</strong> - Fair play ist wichtig!</li>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col md="6">
+                  <Card className="border-danger border-opacity-25 bg-danger bg-opacity-10 h-100">
+                    <Card.Body className="p-3">
+                      <h5 className="h6 text-danger mb-2">❌ Verboten</h5>
+                      <ul className="list-unstyled small mb-0">
+                        <li className="mb-1">• Codes beschädigen</li>
+                        <li className="mb-1">• Verstecke verraten</li>
+                        <li className="mb-1">• Mehrere Accounts</li>
+                        <li className="mb-0">• Betrügen</li>
                       </ul>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Container>

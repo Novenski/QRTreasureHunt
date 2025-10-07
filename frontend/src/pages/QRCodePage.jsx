@@ -201,47 +201,61 @@ const QRCodePage = () => {
 
             {/* Game Explanation */}
             <Card className="border-0 shadow-sm mb-4 card-hover fade-in delay-1">
-              <Card.Body className="p-4">
-                <div className="text-center mb-4">
-                  <h2 className="h3 fw-bold text-danger mb-3">
-                    <span className="me-2">🔥</span>
+              <Card.Body className="p-3 p-md-4">
+                <div className="text-center mb-3">
+                  <div className="display-4 mb-2">🎯</div>
+                  <h2 className="h4 fw-bold text-danger mb-2">
                     QR Wachen Schatzsuche
                   </h2>
-                  <p className="text-muted lead">
-                    Glückwunsch! Du hast einen QR-Code gefunden!
+                  <p className="text-success fw-bold mb-0">
+                    ✅ QR-Code gefunden!
                   </p>
-                  <p className="text-muted">
-                    Dieses Spiel ist speziell für die Kollegen der Wache entwickelt worden.
-                  </p>
-                </div>
-                
-                <div className="row mb-4">
-                  <div className="col-md-6">
-                    <h3 className="h5 fw-bold mb-3 text-success">✅ Spielregeln:</h3>
-                    <ul className="list-unstyled small">
-                      <li className="mb-2">✅ <strong>Zusammen spielen</strong> - Ihr könnt gerne im Team suchen</li>
-                      <li className="mb-2">✅ <strong>Alleine spielen</strong> - Jeder kann auch solo alle finden</li>
-                      <li className="mb-2">✅ <strong>Hilfe geben</strong> - Kollegen bei der Suche unterstützen</li>
-                      <li className="mb-2">✅ <strong>Fair play</strong> - Nur ein Account pro Person</li>
-                    </ul>
-                  </div>
-                  <div className="col-md-6">
-                    <h3 className="h5 fw-bold mb-3 text-danger">❌ Nicht erlaubt:</h3>
-                    <ul className="list-unstyled small">
-                      <li className="mb-2">❌ <strong>QR-Codes beschädigen</strong></li>
-                      <li className="mb-2">❌ <strong>Verstecke verraten</strong></li>
-                      <li className="mb-2">❌ <strong>Mehrere Accounts</strong></li>
-                      <li className="mb-2">❌ <strong>Betrug</strong></li>
-                    </ul>
-                  </div>
                 </div>
 
-                <div className="alert alert-info mb-0">
-                  <h4 className="alert-heading h5">🏆 Preis für alle Finder!</h4>
-                  <p className="mb-0">
-                    <strong>Wer alle QR-Codes findet, bekommt einen kleinen Preis!</strong><br/>
-                    Sammle Punkte und steige im Leaderboard auf. Viel Erfolg bei der Suche!
-                  </p>
+                {/* Prize Alert - Mobile Optimized */}
+                <Alert variant="warning" className="mb-3 text-center">
+                  <div className="fw-bold fs-5">🏆 Hauptgewinn</div>
+                  <div className="small">Alle QR-Codes finden = Preis!</div>
+                </Alert>
+
+                {/* How to Play - Simplified */}
+                <Card className="bg-light border-0 mb-3">
+                  <Card.Body className="p-3">
+                    <h3 className="h6 fw-bold mb-2 text-primary">📋 So funktioniert's:</h3>
+                    <ol className="mb-0 small ps-3">
+                      <li className="mb-1">Melde dich an oder registriere dich</li>
+                      <li className="mb-1">QR-Code scannen & Punkte sammeln</li>
+                      <li className="mb-1">Alle Codes finden & gewinnen!</li>
+                    </ol>
+                  </Card.Body>
+                </Card>
+                
+                {/* Rules - Compact */}
+                <div className="row g-2">
+                  <div className="col-6">
+                    <Card className="bg-success bg-opacity-10 border-success border-opacity-25 h-100">
+                      <Card.Body className="p-2">
+                        <div className="fw-bold small text-success mb-1">✅ Erlaubt</div>
+                        <ul className="list-unstyled mb-0" style={{fontSize: '0.75rem'}}>
+                          <li>• Im Team suchen</li>
+                          <li>• Solo spielen</li>
+                          <li>• Tipps geben</li>
+                        </ul>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                  <div className="col-6">
+                    <Card className="bg-danger bg-opacity-10 border-danger border-opacity-25 h-100">
+                      <Card.Body className="p-2">
+                        <div className="fw-bold small text-danger mb-1">❌ Verboten</div>
+                        <ul className="list-unstyled mb-0" style={{fontSize: '0.75rem'}}>
+                          <li>• Codes beschädigen</li>
+                          <li>• Verstecke verraten</li>
+                          <li>• Mehrere Accounts</li>
+                        </ul>
+                      </Card.Body>
+                    </Card>
+                  </div>
                 </div>
               </Card.Body>
             </Card>
