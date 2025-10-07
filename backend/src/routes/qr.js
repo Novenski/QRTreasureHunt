@@ -83,16 +83,10 @@ router.get('/:codeId', async (req, res) => {
       description: qrCode.description,
       points: qrCode.points,
       foundCount: qrCode.foundCodes.length,
-      gameExplanation: {
-        title: "🎉 Glückwunsch! Du hast einen QR-Code gefunden!",
-        description: "Das ist ein QR-Code-Schatzsuche-Spiel. Registriere dich oder logge dich ein, um den Code zu beanspruchen und Punkte zu sammeln!",
-        howToPlay: [
-          "1. Registriere dich oder logge dich ein",
-          "2. Der QR-Code wird automatisch deinem Konto zugewiesen",
-          "3. Sammle Punkte und steige im Leaderboard auf",
-          "4. Finde alle versteckten QR-Codes!"
-        ]
-      }
+      foundCodes: qrCode.foundCodes.map(fc => ({
+        userId: fc.userId,
+        foundAt: fc.foundAt
+      }))
     });
   } catch (error) {
     console.error('QR code fetch error:', error);
