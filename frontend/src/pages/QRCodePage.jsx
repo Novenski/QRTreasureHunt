@@ -169,12 +169,12 @@ const QRCodePage = () => {
 
             {/* QR Code Info */}
             <Card className="border-0 shadow-sm mb-4 card-hover fade-in">
-              <Card.Body className="text-center p-5">
+              <Card.Body className="text-center p-4 p-md-5">
                 <div className="display-1 mb-4 scale-in">🔥</div>
                 <h1 className="display-5 fw-bold text-danger mb-3 slide-in-left">
                   {qrCode?.name}
                 </h1>
-                <Badge bg="danger" className="fs-5 px-3 py-2 mb-4 glow-animation">
+                <Badge bg="danger" className="fs-5 px-3 py-2 mb-3 glow-animation">
                   {qrCode?.points} Punkte
                 </Badge>
                 {qrCode?.description && (
@@ -182,6 +182,86 @@ const QRCodePage = () => {
                     {qrCode.description}
                   </p>
                 )}
+
+                {/* Action Buttons - Direkt unter QR-Code */}
+                <div className="mt-4 pt-3 border-top">
+                  {isAuthenticated ? (
+                    <>
+                      {(isAlreadyClaimed || claimed) ? (
+                        <Alert variant="success" className="mb-3">
+                          <Alert.Heading className="h6 mb-2">
+                            <span className="me-2">✅</span>
+                            Bereits beansprucht!
+                          </Alert.Heading>
+                          <p className="small mb-0">Du hast die Punkte bereits erhalten.</p>
+                        </Alert>
+                      ) : (
+                        <>
+                          {claimError && (
+                            <Alert variant="danger" className="mb-3">
+                              {claimError}
+                            </Alert>
+                          )}
+                          <Button
+                            variant="success"
+                            size="lg"
+                            onClick={handleClaim}
+                            disabled={claiming}
+                            className="w-100 py-3 fw-bold"
+                          >
+                            {claiming ? (
+                              <>
+                                <Spinner animation="border" size="sm" className="me-2" />
+                                Wird beansprucht...
+                              </>
+                            ) : (
+                              <>
+                                <span className="me-2">🎯</span>
+                                QR-Code beanspruchen & {qrCode?.points} Punkte erhalten
+                              </>
+                            )}
+                          </Button>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <div>
+                      <Alert variant="warning" className="mb-3">
+                        <div className="fw-bold mb-1">🔐 Anmeldung erforderlich</div>
+                        <p className="small mb-0">
+                          Melde dich an, um diesen QR-Code zu beanspruchen!
+                        </p>
+                      </Alert>
+                      
+                      <div className="d-grid gap-2">
+                        <Button
+                          variant="danger"
+                          size="lg"
+                          onClick={() => navigate(`/login?returnTo=/qr/${codeId}`)}
+                          className="py-3 fw-bold"
+                        >
+                          <span className="me-2">🔑</span>
+                          Anmelden
+                        </Button>
+                        <Button
+                          variant="outline-danger"
+                          size="lg"
+                          onClick={() => navigate(`/register?returnTo=/qr/${codeId}`)}
+                          className="py-3 fw-bold"
+                        >
+                          <span className="me-2">📝</span>
+                          Registrieren
+                        </Button>
+                      </div>
+                      
+                      <div className="mt-3">
+                        <small className="text-muted">
+                          💡 Nach der Anmeldung kommst du automatisch hierher zurück!
+                        </small>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </Card.Body>
             </Card>
 
@@ -246,106 +326,24 @@ const QRCodePage = () => {
               </Card.Body>
             </Card>
 
-            {/* Action Buttons */}
-            <Card className="border-0 shadow-sm mb-4 card-hover fade-in delay-2">
-              <Card.Body className="text-center p-4">
-                {isAuthenticated ? (
-                  <>
-                    {(isAlreadyClaimed || claimed) ? (
-                      <div>
-                        <Alert variant="info" className="mb-3">
-                          <Alert.Heading className="h6">
-                            <span className="me-2">✅</span>
-                            Bereits beansprucht!
-                          </Alert.Heading>
-                          Du hast diesen QR-Code bereits gefunden und die Punkte erhalten.
-                        </Alert>
-                        <div className="d-grid gap-3">
-                          <Button
-                            variant="primary"
-                            size="lg"
-                            onClick={() => navigate('/dashboard')}
-                          >
-                            Zum Dashboard
-                          </Button>
-                          <Button
-                            variant="outline-primary"
-                            onClick={() => navigate('/leaderboard')}
-                          >
-                            Leaderboard ansehen
-                          </Button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div>
-                        {claimError && (
-                          <Alert variant="danger" className="mb-3" dismissible onClose={() => setClaimError('')}>
-                            <Alert.Heading className="h6">Fehler beim Beanspruchen</Alert.Heading>
-                            {claimError}
-                          </Alert>
-                        )}
-                        <Button
-                          variant="success"
-                          size="lg"
-                          onClick={handleClaim}
-                          disabled={claiming}
-                          className="px-5"
-                        >
-                          {claiming ? (
-                            <>
-                              <Spinner animation="border" size="sm" className="me-2" />
-                              Wird beansprucht...
-                            </>
-                          ) : (
-                            'QR-Code beanspruchen!'
-                          )}
-                        </Button>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div>
-                    <Alert variant="warning" className="mb-4">
-                      <Alert.Heading className="h6">
-                        <span className="me-2">🔐</span>
-                        Anmeldung erforderlich
-                      </Alert.Heading>
-                      <p className="mb-3">
-                        Um diesen QR-Code zu beanspruchen und Punkte zu sammeln, musst du dich anmelden oder registrieren.
-                      </p>
-                      <div className="small text-muted">
-                        <strong>Nach der Anmeldung:</strong> Du wirst automatisch zu diesem QR-Code zurückgeleitet und kannst ihn beanspruchen!
-                      </div>
-                    </Alert>
-                    
-                    <div className="d-grid gap-3 d-md-flex justify-content-md-center">
-                      <Button
-                        variant="primary"
-                        size="lg"
-                        onClick={() => navigate(`/login?returnTo=/qr/${codeId}`)}
-                        className="px-4"
-                      >
-                        🔑 Anmelden
-                      </Button>
-                      <Button
-                        variant="outline-primary"
-                        size="lg"
-                        onClick={() => navigate(`/register?returnTo=/qr/${codeId}`)}
-                        className="px-4"
-                      >
-                        📝 Registrieren
-                      </Button>
-                    </div>
-                    
-                    <div className="mt-4">
-                      <small className="text-muted">
-                        💡 <strong>Tipp:</strong> Nach der Anmeldung/Registrierung kommst du automatisch hierher zurück!
-                      </small>
-                    </div>
-                  </div>
-                )}
-              </Card.Body>
-            </Card>
+            {/* Navigation Buttons - Only after claim */}
+            {isAuthenticated && (isAlreadyClaimed || claimed) && (
+              <div className="d-grid gap-2 mb-4">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={() => navigate('/dashboard')}
+                >
+                  📊 Zum Dashboard
+                </Button>
+                <Button
+                  variant="outline-primary"
+                  onClick={() => navigate('/leaderboard')}
+                >
+                  🏆 Leaderboard ansehen
+                </Button>
+              </div>
+            )}
 
             {/* Stats */}
             <Card className="border-0 shadow-sm">
