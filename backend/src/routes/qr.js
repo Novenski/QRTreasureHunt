@@ -45,9 +45,15 @@ router.get('/all', async (req, res) => {
 router.get('/:codeId', async (req, res) => {
   try {
     const { codeId } = req.params;
-
-    const qrCode = await prisma.qRCode.findUnique({
-      where: { code: codeId },
+    
+    // Case-insensitive search
+    const qrCode = await prisma.qRCode.findFirst({
+      where: { 
+        code: {
+          equals: codeId,
+          mode: 'insensitive'
+        }
+      },
       include: {
         foundCodes: {
           include: {
@@ -100,9 +106,14 @@ router.post('/:codeId/claim', authMiddleware, async (req, res) => {
     const { codeId } = req.params;
     const userId = req.user.id;
 
-    // Check if QR code exists and is active
-    const qrCode = await prisma.qRCode.findUnique({
-      where: { code: codeId }
+    // Check if QR code exists and is active (case-insensitive)
+    const qrCode = await prisma.qRCode.findFirst({
+      where: { 
+        code: {
+          equals: codeId,
+          mode: 'insensitive'
+        }
+      }
     });
 
     if (!qrCode) {
