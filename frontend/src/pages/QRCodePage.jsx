@@ -40,8 +40,6 @@ const QRCodePage = () => {
 
   const handleClaim = async () => {
     if (!isAuthenticated) {
-      // Redirect to login with return URL
-      console.log('Redirecting to login with return URL:', `/qr/${codeId}`);
       navigate(`/login?returnTo=/qr/${codeId}`);
       return;
     }
@@ -60,9 +58,7 @@ const QRCodePage = () => {
     setClaimError('');
     
     try {
-      console.log('Attempting to claim QR code:', codeId);
       const response = await qrAPI.claimQRCode(codeId);
-      console.log('QR code claimed successfully:', response.data);
       setClaimed(true);
       
       // Start countdown for redirect
@@ -71,7 +67,6 @@ const QRCodePage = () => {
         setRedirectCountdown(prev => {
           if (prev <= 1) {
             clearInterval(countdownInterval);
-            console.log('Redirecting to dashboard after successful claim');
             navigate('/dashboard');
             return 0;
           }
@@ -82,32 +77,23 @@ const QRCodePage = () => {
       // Don't refresh QR code data immediately to preserve success message
       // The redirect will happen before the user sees the updated data
     } catch (err) {
-      console.error('Error claiming QR code:', err);
       const errorMessage = err.response?.data?.error || 'Fehler beim Beanspruchen';
       setClaimError(errorMessage);
-      console.log('Claim error:', errorMessage);
     } finally {
       setClaiming(false);
     }
   };
 
-  // Check claim status when QR code and user data are loaded
   useEffect(() => {
     if (isAuthenticated && !hasCheckedClaimStatus && qrCode && user) {
-      console.log('User is authenticated, checking QR code claim status...');
       setHasCheckedClaimStatus(true);
       
-      // Check if this QR code was already found by this user
       const hasFoundThisCode = qrCode.foundCodes?.some(foundCode => 
         foundCode.userId === user?.id
       );
       
       if (hasFoundThisCode) {
-        console.log('QR code already found by user, setting as claimed');
         setClaimed(true);
-      } else {
-        console.log('QR code not found by user yet - ready to claim');
-        // Don't auto-claim, let user click the button
       }
     }
   }, [isAuthenticated, qrCode, user, hasCheckedClaimStatus]);

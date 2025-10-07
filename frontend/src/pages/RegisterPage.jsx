@@ -56,9 +56,6 @@ const RegisterPage = () => {
       // Wait a moment to show success message
       setTimeout(() => {
         login(user, token);
-        
-        // Redirect to the return URL or dashboard
-        console.log('Registration successful, redirecting to:', returnTo);
         navigate(returnTo);
       }, 1500);
       

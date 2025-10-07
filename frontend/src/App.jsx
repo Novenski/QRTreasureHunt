@@ -10,24 +10,29 @@ import QRCodePage from './pages/QRCodePage';
 import DashboardPage from './pages/DashboardPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import AdminPage from './pages/AdminPage';
+import ImpressumPage from './pages/ImpressumPage';
+import DatenschutzPage from './pages/DatenschutzPage';
 
 // Components
 import CustomNavbar from './components/Navbar';
+import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-vh-100 bg-light">
+        <div className="d-flex flex-column min-vh-100">
           <CustomNavbar />
-          <main>
+          <main className="flex-grow-1">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/qr/:codeId" element={<QRCodePage />} />
               <Route path="/leaderboard" element={<LeaderboardPage />} />
+              <Route path="/impressum" element={<ImpressumPage />} />
+              <Route path="/datenschutz" element={<DatenschutzPage />} />
               
               {/* Protected Routes */}
               <Route 
@@ -51,6 +56,7 @@ function App() {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
+          <Footer />
         </div>
       </Router>
     </AuthProvider>

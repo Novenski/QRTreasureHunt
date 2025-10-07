@@ -38,9 +38,6 @@ const LoginPage = () => {
       const { user, token } = response.data;
       
       login(user, token);
-      
-      // Redirect to the return URL or dashboard
-      console.log('Login successful, redirecting to:', returnTo);
       navigate(returnTo);
     } catch (err) {
       setError(err.response?.data?.error || 'Anmeldung fehlgeschlagen');

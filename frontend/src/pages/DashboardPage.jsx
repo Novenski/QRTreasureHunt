@@ -16,22 +16,14 @@ const DashboardPage = () => {
 
   const fetchData = async () => {
     try {
-      console.log('=== Fetching Dashboard Data ===');
       const [statsRes, qrCodesRes] = await Promise.all([
         userAPI.getStats(),
-        qrAPI.getAllQRCodes(), // Neue API für alle QR-Codes
+        qrAPI.getAllQRCodes(),
       ]);
-      
-      console.log('Stats response:', statsRes.data);
-      console.log('QR Codes response:', qrCodesRes.data);
       
       setStats(statsRes.data);
       setAllQRCodes(qrCodesRes.data.qrCodes || []);
-      
-      console.log('Data loaded successfully');
-      console.log('=============================');
     } catch (err) {
-      console.error('Error fetching dashboard data:', err);
       setError(err.response?.data?.error || 'Fehler beim Laden der Statistiken');
     } finally {
       setLoading(false);
@@ -75,27 +67,7 @@ const DashboardPage = () => {
 
   // Check if user has found a specific QR code
   const hasFoundQRCode = (qrCodeId) => {
-    console.log('=== QR Code Check Debug ===');
-    console.log('Checking QR Code ID:', qrCodeId);
-    console.log('Stats object:', stats);
-    console.log('Found codes array:', stats?.foundCodes);
-    console.log('Found codes length:', stats?.foundCodes?.length);
-    
-    if (stats?.foundCodes) {
-      stats.foundCodes.forEach((foundCode, index) => {
-        console.log(`Found code ${index}:`, {
-          id: foundCode.id,
-          qrCodeId: foundCode.qrCode?.id,
-          qrCodeName: foundCode.qrCode?.name,
-          matches: foundCode.qrCode?.id === qrCodeId
-        });
-      });
-    }
-    
-    const found = stats?.foundCodes?.some(foundCode => foundCode.qrCode.id === qrCodeId) || false;
-    console.log('Final result:', found);
-    console.log('========================');
-    return found;
+    return stats?.foundCodes?.some(foundCode => foundCode.qrCode.id === qrCodeId) || false;
   };
 
   return (

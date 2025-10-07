@@ -114,7 +114,6 @@ const HomePage = () => {
                         <li className="mb-1">• Im Team suchen</li>
                         <li className="mb-1">• Alleine spielen</li>
                         <li className="mb-1">• Tipps geben</li>
-                        <li className="mb-0">• Codes mehrfach scannen</li>
                       </ul>
                     </Card.Body>
                   </Card>
